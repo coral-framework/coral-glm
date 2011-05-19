@@ -1,0 +1,34 @@
+native class Vec3( <glm.hpp> glm::precision::highp_vec3 )
+{
+	double x;
+	double y;
+	double z;
+	
+	// Performs a multiplication by a scalar
+	void mul( in double value );
+	
+	// Performs a piecewise addition 
+	void add( in Vec3 v );
+	
+	// Performs a piecewise subtraction
+	void sub( in Vec3 v );
+	
+	void copy( in Vec3 v );
+	
+	// Performs a vectorial product
+	void cross( in Vec3 v );
+	
+	// Performs a scalar product
+	double dot( in Vec3 v );
+	
+	// Returns if the given Vec3 is identical to the current instance
+	bool equals( in Vec3 v );
+	
+	// Returns the vector length
+	double length();
+	
+	// Normalizes this to the length of 1
+	void normalize();
+	
+	void transform( in Mat4 m );
+};
