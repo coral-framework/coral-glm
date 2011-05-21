@@ -4,6 +4,10 @@ native class Vec3( <glm.hpp> glm::precision::highp_vec3 )
 	double y;
 	double z;
 	
+	void setXYZ( in double x, in double y, in double z );
+	
+	void getXYZ( out double x, out double y, out double z );
+	
 	// Performs a multiplication by a scalar
 	void mul( in double value );
 	

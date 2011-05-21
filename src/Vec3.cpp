@@ -38,6 +38,20 @@ void Vec3_Adapter::setZ( glm::Vec3& instance, double z )
 	instance.z = z;
 }
 
+void Vec3_Adapter::getXYZ( glm::Vec3& instance, double& x, double& y, double& z  )
+{
+	x = instance.x;
+	y = instance.y;
+	z = instance.z;
+}
+
+void Vec3_Adapter::setXYZ( glm::Vec3& instance, double x, double y, double z  )
+{
+	instance.x = x;
+	instance.y = y;
+	instance.z = z;
+}
+
 void Vec3_Adapter::add( glm::Vec3& instance, const glm::Vec3& v )
 {
 	instance += v;
