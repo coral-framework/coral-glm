@@ -5,7 +5,7 @@
  */
 
 #include "Mat4_Adapter.h"
-#include "gtc\matrix_transform.hpp"
+#include "gtc/matrix_transform.hpp"
 
 namespace glm {
 
