@@ -20,6 +20,7 @@ end
 
 local v1
 local v2
+local v3
 
 function basicsTest()
 	v1 = glm.vec3( 1, 1, 1 )
@@ -28,6 +29,58 @@ function basicsTest()
 	v2.y = 1
 	v2.z = 1
 	ASSERT_VEC_EQ( v1, v2 )
+end
+
+function mtOperationsTest()
+	v1 = glm.vec3( 1, 1, 1 )	
+	v2 = glm.vec3( 1, 1, 1 )
+	v3 = glm.vec3()
+	v3 = v1 + v2
+	ASSERT_VEC_EQ( v3, glm.vec3( 2, 2, 2 ), "aaaa" )
+	v1 = v2 + v3
+	ASSERT_VEC_EQ( v1, glm.vec3( 3, 3, 3 ), "ssss" )
+	
+	v1 = glm.vec3( 1, 1, 1 )	
+	v2 = glm.vec3( 1, 1, 1 )
+	v3 = glm.vec3()
+	v3 = v1 + v2
+	ASSERT_VEC_EQ( v3, glm.vec3( 2, 2, 2 ), "dddd" )
+	v1 = v2 + v3
+	ASSERT_VEC_EQ( v1, glm.vec3( 3, 3, 3 ), "ccc" )
+	
+	v1 = glm.vec3()	
+	v2 = glm.vec3( 1, 1, 1 )
+	v3 = glm.vec3()
+	v3 = v2 * 2
+	ASSERT_VEC_EQ( v3, glm.vec3( 2, 2, 2 ), "bbbb" )
+	v1 =  v2 * 2 
+	ASSERT_VEC_EQ( v1, v3, "aaa" )
+end
+
+function basicOpsTest()
+	v1 = glm.vec3( 1, 1, 1 )	
+	v2 = glm.vec3( 1, 1, 1 )
+	v3 = glm.vec3()
+	glm.addVec( v1, v2, v3 )
+	ASSERT_VEC_EQ( v3, glm.vec3( 2, 2, 2 ) )
+	v1 = glm.addVec( v2, v3 )
+	ASSERT_VEC_EQ( v1, glm.vec3( 3, 3, 3 ) )
+	
+	v1 = glm.vec3( 1, 1, 1 )	
+	v2 = glm.vec3( 1, 1, 1 )
+	v3 = glm.vec3()
+	glm.subVec( v1, v2, v3 )
+	ASSERT_VEC_EQ( v3, glm.vec3( 0, 0, 0 ) )
+	v1 = glm.addVec( v2, v3 )
+	ASSERT_VEC_EQ( v1, glm.vec3( 1, 1, 1 ) )
+	
+	v1 = glm.vec3()	
+	v2 = glm.vec3( 1, 1, 1 )
+	v3 = glm.vec3()
+	glm.mulVec( v2, 2, v3 )
+	ASSERT_VEC_EQ( v3, glm.vec3( 2, 2, 2 ) )
+	v1 = glm.mulVec( v2, 2 )
+	ASSERT_VEC_EQ( v1, v3 )
 end
 
 function crossTest()

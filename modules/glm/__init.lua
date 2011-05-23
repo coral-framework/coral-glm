@@ -30,16 +30,6 @@ end
 --           Vec3 functions               --
 --------------------------------------------
 
--- returns the float components of Vec3 v 
-function M.getXYZ( v )
-	return v:getXYZ()
-end
-
--- sets the float components x,y,z of Vec3 v  
-function M.setXYZ( v, x, y, z )
-	v:setXYZ( x, y, z )
-end
-
 -- returns the Vec3 cross product of Vec3 v1 against v2
 function M.cross( v1, v2, out )
 	out = out or co.new "glm.Vec3"
@@ -48,7 +38,7 @@ function M.cross( v1, v2, out )
 	out:cross( v2 )
 	return out	
 end
-
+	
 -- returns the float dot product of Vec3 v1 and v2  
 function M.dot( v1, v2 )
 	return v1:dot( v2 )
@@ -65,6 +55,57 @@ function M.normalize( v, out )
 	
 	out:copy( v )
 	out:normalize()
+	return out	
+end
+
+--------- Multiple Getters/Setters ---------
+
+-- returns the float components of Vec3 v 
+function M.getXYZ( v )
+	return v:getXYZ()
+end
+
+-- sets the float components x,y,z of Vec3 v  
+function M.setXYZ( v, x, y, z )
+	v:setXYZ( x, y, z )
+end
+
+
+------------- Basic Operations -----------
+
+-- returns the Vec3 result of the Vec3s v1 + v2
+function M.addVec( v1, v2, out )
+	out = out or co.new "glm.Vec3"
+	
+	out:copy( v1 )
+	out:add( v2 )
+	return out	
+end
+
+-- returns the Vec3 result of v1 - v2
+function M.subVec( v1, v2, out )
+	out = out or co.new "glm.Vec3"
+	
+	out:copy( v1 )
+	out:sub( v2 )
+	return out	
+end
+
+-- returns the Vec3 result of Vec3 v * Scalar s
+function M.mulVec( v, s, out )
+	out = out or co.new "glm.Vec3"
+	
+	out:copy( v )
+	out:mul( s )
+	return out	
+end
+
+-- returns the Vec3 result of Vec3 v / Scalar s
+function M.divVec( v, s, out )
+	out = out or co.new "glm.Vec3"
+	
+	out:copy( v )
+	out:mul( 1 / s )
 	return out	
 end
 
@@ -89,5 +130,13 @@ function M.transpose( m, out )
 	out:invert()
 	return out	
 end
+
+
+M.zeroVec = co.new "glm.Vec3"
+local vecMT = getmetatable( M.zeroVec )
+vecMT.__add = M.addVec
+vecMT.__sub = M.subVec
+vecMT.__div = M.divVec
+vecMT.__mul = M.mulVec
 
 return M
