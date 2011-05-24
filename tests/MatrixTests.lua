@@ -85,3 +85,42 @@ function cameraTest()
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), 1 )
 end
 
+function operatorsTest()
+	local v1 = glm.vec3( 0, 0, 0 )
+	m1 = glm.mat4()
+	
+	v1 = m1 * v1
+	ASSERT_DOUBLE_EQ( v1.x, 0 )
+	ASSERT_DOUBLE_EQ( v1.y, 0 )
+	ASSERT_DOUBLE_EQ( v1.z, 0 )
+	
+	m1 = glm.translate( m1, glm.vec3( 2, 2, 2 ) )
+	v1 = m1 * v1
+	ASSERT_DOUBLE_EQ( v1.x, 2 )
+	ASSERT_DOUBLE_EQ( v1.y, 2 )
+	ASSERT_DOUBLE_EQ( v1.z, 2 )
+	
+	m2 = glm.inverse( m1 )
+	m3 = m1 * m2
+	local i
+	local j
+	for i = 0,3 do
+		for j = 0,3 do
+			ASSERT_DOUBLE_EQ( glm.getElement( m3, i, j ), i == j and 1 or 0, "aaaa" )
+		end
+	end
+	
+	m3 = m3 + m3 
+	for i = 0,3 do
+		for j = 0,3 do
+			ASSERT_DOUBLE_EQ( glm.getElement( m3, i, j ), i == j and 2 or 0, "bbbb" )
+		end
+	end
+	
+	m3 = m3 * 2
+	for i = 0,3 do
+		for j = 0,3 do
+			ASSERT_DOUBLE_EQ( glm.getElement( m3, i, j ), i == j and 4 or 0 )
+		end
+	end
+end

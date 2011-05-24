@@ -61,15 +61,6 @@ function M.normalize( v, out )
 	return out	
 end
 
--- returns the Vec3 result of ( Mat4 m * Vec3 v )
-function M.transform( v, m, out )
-	out = out or co.new "glm.Vec3"
-	
-	out:copy( v )
-	out:transform( m )
-	return out	 
-end
-
 --------- Multiple Getters/Setters ---------
 
 -- returns the float components of Vec3 v 
@@ -183,6 +174,24 @@ function M.translate( m, position, out )
 	return out	
 end
 
+-- returns the Vec3 result of ( Mat4 m * Vec3 v )
+function M.transform( m, v, out )
+	out = out or co.new "glm.Vec3"
+	
+	out:copy( v )
+	out:transform( m )
+	return out	 
+end
+
+
+-- returns the mat4 result of mat4 m1 + m2
+function M.addMat( m1, m2, out )
+	out = out or co.new "glm.Mat4"
+	out:copy( m1 )
+	out:add( m2 )
+	return out
+end
+
 -- returns the mat4 result of mat4 m1 * m2
 function M.mul( m1, m2, out )
 	out = out or co.new "glm.Mat4"
@@ -232,8 +241,11 @@ end
 --------------------------------------------
 --          Specific operators            --
 --------------------------------------------
+
+local coTypeOf = co.typeOf
+
 -- function for overloading the * operator for vec3 (tests which parameter is a scalar)
-function M.vecScalarMulOperator( a, b )
+function M.vecMulOperator( a, b )
 	if type( b ) == "number" then
 		return M.mulVec( a, b )
 	end
@@ -241,24 +253,43 @@ function M.vecScalarMulOperator( a, b )
 end
 
 -- function for overloading the * operator for vec3 (tests which parameter is a scalar)
-function M.vecScalarDivOperator( a, b )
+function M.vecDivOperator( a, b )
 	if type( b ) == "number" then
 		return M.divVec( a, b )
 	end
 	return M.divVec( b, a )
 end
 
+-- operator needs to check combinations of vec3, mat4 and scalar
+function M.matMulOperator( a, b )
+	typeA = coTypeOf( a )
+	typeB = coTypeOf( b )
+	if not typeA then
+		return M.mulScalar( b, a )
+	elseif typeB == "glm.Mat4" then
+		return M.mul( a, b )
+	elseif not typeB then
+		return M.mulScalar( a, b )
+	elseif typeB == "glm.Vec3" then
+		return M.transform( a, b )
+	else
+		error( "there is no operation between a glm.mat4 and " .. typeB )
+	end	
+end
+
+
 -- operators for mat4
 M.idMat = co.new "glm.Mat4"
 local matMT = getmetatable( M.idMat )
-matMT.__mul = M.mul
+matMT.__mul = M.matMulOperator
+matMT.__add = M.addMat
 
 -- operators for vec3
 M.zeroVec = co.new "glm.Vec3"
 local vecMT = getmetatable( M.zeroVec )
 vecMT.__add = M.addVec
 vecMT.__sub = M.subVec
-vecMT.__div = M.vecScalarDivOperator
-vecMT.__mul = M.vecScalarMulOperator
+vecMT.__div = M.vecDivOperator
+vecMT.__mul = M.vecMulOperator
 
 return M

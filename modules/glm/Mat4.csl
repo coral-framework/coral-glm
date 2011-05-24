@@ -19,6 +19,7 @@ native class Mat4( <glm.hpp> glm::precision::highp_mat4x4 )
 	void perspective( in double fovy, in double aspect, in double zNear, in double zFar );
 
 	void preMul( in Mat4 m );
-	void posMul( in Mat4 m );	
+	void posMul( in Mat4 m );
+	void add( in Mat4 m );
 	void mulScalar( in double value );
 };
