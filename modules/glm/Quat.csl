@@ -1,0 +1,21 @@
+native class Quat( <gtx/quaternion.hpp> glm::detail::tquat<double> )
+{
+	double x;
+	double y;
+	double z;
+	double w;
+	
+	void setXYZW( in double x, in double y, in double z, in double w );	
+	void getXYZW( out double x, out double y, out double z, out double w );
+
+	void conjugate();
+	void cross( in Quat q );
+	double dot( in Quat q );
+	void inverse();
+	void shortMix( in Quat q, in double factor );
+	void fastMix( in Quat q, in double factor );
+	void rotate( in double degrees, in Vec3 axis );	
+	
+	void copy( in Quat q );
+	void fromMat4( in Mat4 m );	
+};
