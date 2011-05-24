@@ -87,14 +87,9 @@ void Quat_Adapter::inverse( glm::Quat& instance )
 	instance = glm::gtc::quaternion::inverse( instance );
 }
 
-void Quat_Adapter::shortMix( glm::Quat& instance, const glm::Quat& q, double factor )
+void Quat_Adapter::mix( glm::Quat& instance, const glm::Quat& q, double factor )
 {
 	instance = glm::gtx::quaternion::shortMix( instance, q, factor );
-}
-
-void Quat_Adapter::fastMix( glm::Quat& instance, const glm::Quat& q, double factor )
-{
-	instance = glm::gtx::quaternion::fastMix( instance, q, factor );
 }
 
 void Quat_Adapter::rotate( glm::Quat& instance, double degrees, const glm::Vec3& axis )

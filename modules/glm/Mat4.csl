@@ -12,6 +12,7 @@ native class Mat4( <glm.hpp> glm::precision::highp_mat4x4 )
 	void transpose();
 	
 	void copy( in Mat4 m );
+	void fromQuat( in Quat q );
 	
 	void frustum( in double left, in double right, in double bottom, in double up, in double nearVal, in double farVal );
 	void lookAt( in Vec3 eye, in Vec3 center, in Vec3 up );

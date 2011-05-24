@@ -35,4 +35,8 @@ native class Vec3( <glm.hpp> glm::precision::highp_vec3 )
 	void normalize();
 	
 	void transform( in Mat4 m );
+	
+	void quatVecMul( in Quat q );
+	
+	void vecQuatMul( in Quat q );
 };

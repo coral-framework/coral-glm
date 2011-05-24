@@ -1,5 +1,6 @@
 #include "Mat4_Adapter.h"
-#include "gtc/matrix_transform.hpp"
+#include <gtc/matrix_transform.hpp>
+#include <gtc/quaternion.hpp>
 
 namespace glm {
 	
@@ -11,6 +12,11 @@ void Mat4_Adapter::add( glm::Mat4& instance, const glm::Mat4& m )
 void Mat4_Adapter::copy( glm::Mat4& instance, const glm::Mat4& m )
 {
 	instance = glm::Mat4( m );
+}
+
+void Mat4_Adapter::fromQuat( glm::Mat4& instance, const glm::Quat& q )
+{
+	instance = glm::gtc::quaternion::mat4_cast( q );
 }
 
 void Mat4_Adapter::frustum( glm::Mat4& instance, double left, double right, double bottom, double up, double nearVal, double farVal )
