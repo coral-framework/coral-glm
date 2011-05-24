@@ -18,7 +18,7 @@ void Mat4_Adapter::frustum( glm::Mat4& instance, double left, double right, doub
 	instance = gtc::matrix_transform::frustum( left, right, bottom, up, nearVal, farVal );
 }
 
-double Mat4_Adapter::getElement( glm::Mat4& instance, int i, int j )
+double Mat4_Adapter::getElement( glm::Mat4& instance, co::int32 i, co::int32 j )
 {
 	return instance[i][j];
 }
