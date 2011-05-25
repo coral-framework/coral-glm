@@ -47,7 +47,7 @@ function invTranpTest()
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 1 ), 2	)
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), 2 )
 	
-	glm.inverse( m1, m1 )
+	glm.inverseMat( m1, m1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 0 ), -2 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 1 ), -2 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), -2 )
@@ -100,7 +100,7 @@ function operatorsTest()
 	ASSERT_DOUBLE_EQ( v1.y, 2 )
 	ASSERT_DOUBLE_EQ( v1.z, 2 )
 	
-	m2 = glm.inverse( m1 )
+	m2 = glm.inverseMat( m1 )
 	m3 = m1 * m2
 	local i
 	local j

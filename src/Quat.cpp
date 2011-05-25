@@ -92,6 +92,12 @@ void Quat_Adapter::mix( glm::Quat& instance, const glm::Quat& q, double factor )
 	instance = glm::gtx::quaternion::shortMix( instance, q, factor );
 }
 
+void Quat_Adapter::mul( glm::Quat& instance, const glm::Quat& q )
+{
+	instance = instance * q;
+}
+
+	
 void Quat_Adapter::rotate( glm::Quat& instance, double degrees, const glm::Vec3& axis )
 {
 	instance = glm::gtc::quaternion::rotate( instance, degrees, axis );

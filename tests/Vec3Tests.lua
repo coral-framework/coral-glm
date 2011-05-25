@@ -77,30 +77,30 @@ function basicOpsTest()
 	v1 = glm.vec3()	
 	v2 = glm.vec3( 1, 1, 1 )
 	v3 = glm.vec3()
-	glm.mulVec( v2, 2, v3 )
+	glm.mulVecScalar( v2, 2, v3 )
 	ASSERT_VEC_EQ( v3, glm.vec3( 2, 2, 2 ) )
-	v1 = glm.mulVec( v2, 2 )
+	v1 = glm.mulVecScalar( v2, 2 )
 	ASSERT_VEC_EQ( v1, v3 )
 end
 
 function crossTest()
 	v1 = glm.vec3( 0, 1, 0 )
 	v2 = glm.vec3( 0, 0, 1 )
-	local v3 = glm.cross( v1, v2 )
+	local v3 = glm.crossVec( v1, v2 )
 	ASSERT_VEC_EQ( v3, glm.vec3( 1, 0, 0 ) )
 	local v4
-	glm.cross( v1, v2, v4 )
+	glm.crossVec( v1, v2, v4 )
 	ASSERT_VEC_EQ( v3, glm.vec3( 1, 0, 0 ) )	
 end
 
 function dotTest()
 	v1 = glm.vec3( 0, 1, 0 )
 	v2 = glm.vec3( 0, 0, 1 )
-	local result = glm.dot( v1, v2 )
+	local result = glm.dotVec( v1, v2 )
 	ASSERT_DOUBLE_EQ( result, 0 )
 	v1.z = 1
-	result = glm.dot( v1, v2 )
-	glm.cross( v1, v2, v4 )
+	result = glm.dotVec( v1, v2 )
+	glm.crossVec( v1, v2, v4 )
 	ASSERT_DOUBLE_EQ( result, 1 )	
 end
 

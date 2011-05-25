@@ -13,6 +13,7 @@ native class Quat( <gtx/quaternion.hpp> glm::dquat )
 	double dot( in Quat q );
 	void inverse();
 	void mix( in Quat q, in double factor );
+	void mul( in Quat q );
 	void rotate( in double degrees, in Vec3 axis );	
 	
 	void copy( in Quat q );

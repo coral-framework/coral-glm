@@ -16,7 +16,7 @@ function M.mat4()
 end
 
 function  M.quat()
-	return 0
+	return co.new "glm.Quat"
 end
 
 -----------------------------------------------------
@@ -34,7 +34,7 @@ end
 --------------------------------------------
 
 -- returns the Vec3 cross product of Vec3 v1 against v2
-function M.cross( v1, v2, out )
+function M.crossVec( v1, v2, out )
 	out = out or co.new "glm.Vec3"
 	
 	out:copy( v1 )
@@ -43,7 +43,7 @@ function M.cross( v1, v2, out )
 end
 	
 -- returns the float dot product of Vec3 v1 and v2  
-function M.dot( v1, v2 )
+function M.dotVec( v1, v2 )
 	return v1:dot( v2 )
 end
 
@@ -94,7 +94,7 @@ function M.subVec( v1, v2, out )
 end
 
 -- returns the Vec3 result of Vec3 v * Scalar s
-function M.mulVec( v, s, out )
+function M.mulVecScalar( v, s, out )
 	out = out or co.new "glm.Vec3"
 	
 	out:copy( v )
@@ -103,11 +103,29 @@ function M.mulVec( v, s, out )
 end
 
 -- returns the Vec3 result of Vec3 v / Scalar s
-function M.divVec( v, s, out )
+function M.divVecScalar( v, s, out )
 	out = out or co.new "glm.Vec3"
 	
 	out:copy( v )
 	out:mul( 1 / s )
+	return out	
+end
+
+-- returns the Vec3 result of (inverse of Quat q) * Vec3 v
+function M.mulVecQuat( v, q, out )
+	out = out or co.new "glm.Vec3"
+	
+	out:copy( v )
+	out:vecmulQuat( q )
+	return out	
+end
+
+-- returns the Vec3 result of Quat q * Vec3 v
+function M.mulQuatVec( v, q, out )
+	out = out or co.new "glm.Vec3"
+	
+	out:copy( v )
+	out:quatVecMul( q )
 	return out	
 end
 
@@ -120,6 +138,14 @@ function M.getElement( m, i, j )
 	return m:getElement( i, j )
 end
 
+-- returns the Mat4 containing the rotation of Quat q
+function M.fromQuat( q, out )
+	out = out or co.new "glm.Mat4"
+	out:fromQuat( q )
+	return out
+end
+
+
 -------- Basic Algebric operations ---------
 
 -- returns the identity matrix
@@ -130,7 +156,7 @@ function M.identity( out )
 end
 	
 -- returns the Mat4 inserve of m
-function M.inverse( m, out )
+function M.inverseMat( m, out )
 	out = out or co.new "glm.Mat4"
 	
 	out:copy( m )
@@ -147,7 +173,7 @@ function M.transpose( m, out )
 	return out	
 end
 
--- rotates a copy of m of Scalar degrees around Vec3 axis and returns it
+-- rotates a copy of Mat4 m by Scalar degrees around Vec3 axis and returns it
 function M.rotate( m, degrees, axis, out )
 	out = out or co.new "glm.Mat4"
 	
@@ -193,7 +219,7 @@ function M.addMat( m1, m2, out )
 end
 
 -- returns the mat4 result of mat4 m1 * m2
-function M.mul( m1, m2, out )
+function M.mulMat( m1, m2, out )
 	out = out or co.new "glm.Mat4"
 	out:copy( m1 )
 	out:preMul( m2 )
@@ -201,7 +227,7 @@ function M.mul( m1, m2, out )
 end
 
 -- returns the mat4 result of mat4 m * double s
-function M.mulScalar( m, s, out )
+function M.mulMatScalar( m, s, out )
 	out = out or co.new "glm.Mat4"
 	out:copy( m )
 	out:mulScalar( s )
@@ -239,6 +265,87 @@ function M.frustum( left, right, bottom, top, nearVal, farVal, out )
 end
 
 --------------------------------------------
+--           Quat functions               --
+--------------------------------------------
+
+-- gets Quat q Scalar x,y,z,w coordinates
+function M.getXYZW( q )
+	return q:getXYZW()
+end
+
+-- sets Quat q Scalar x,y,z,w coordinates
+function M.setXYZW( q, x, y, z, w )
+	q:setXYZW( x, y, z, w )
+end
+
+-- returns a Quat containing the rotation of Mat4 m
+function M.fromMat4( m, out )
+	out = out or co.new "glm.Quat"
+	
+	out:fromMat4( m )
+	return out
+end
+
+-- returns the Quat conjugate of q
+function M.conjugate( q, out )
+	out = out or co.new "glm.Quat"
+	
+	out:copy( q )
+	out:conjugate()
+	return out
+end
+
+-- returns the Scalar dot product between Quat q1 and Quat q2
+function M.dotQuat( q1, q2 )
+	return q1:dot( q2 )
+end
+
+-- returns the Quat result of Quat q1 cross against Quat q2
+function M.crossQuat( q1, q2, out )
+	out = out or co.new "glm.Quat"
+	
+	out:copy( q1 )
+	out:cross( q2 )
+	return out
+end
+
+-- returns the Quat inverse of Quat q
+function M.inverseQuat( q, out )
+	out = out or co.new "glm.Quat"
+	
+	out:copy( q )
+	out:inverse()
+	return out
+end
+
+-- returns the Quat result of Quat q1 * Quat q2
+function M.mulQuat( q1, q2, out )
+	out = out or co.new "glm.Quat"
+	
+	out:copy( q1 )
+	out:mul( q2 )
+	return out
+end
+
+-- returns the Quat result of shortest path SLERP between Quat q1 and q2 
+function M.mix( q1, q2, out )
+	out = out or co.new "glm.Quat"
+	
+	out:copy( q1 )
+	out:mix( q2 )
+	return out
+end
+
+-- rotates a copy of Quat q by Scalar degrees around Vec3 axis and returns it
+function M.rotate( q, degrees, axis, out )
+	out = out or co.new "glm.Quat"
+	
+	out:copy( q )
+	out:rotate( degrees, axis )
+	return out
+end
+
+--------------------------------------------
 --          Specific operators            --
 --------------------------------------------
 
@@ -246,18 +353,37 @@ local coTypeOf = co.typeOf
 
 -- function for overloading the * operator for vec3 (tests which parameter is a scalar)
 function M.vecMulOperator( a, b )
-	if type( b ) == "number" then
-		return M.mulVec( a, b )
-	end
-	return M.mulVec( b, a )
+	typeA = coTypeOf( a )
+	typeB = coTypeOf( b )
+	if not typeA then
+		return M.mulVecScalar( b, a )
+	elseif not typeB then
+		return M.mulVecScalar( a, b )
+	elseif typeB == "glm.Quat" then
+		return M.mulVecQuat( a, b )
+	else
+		error( "there is no operation between a glm.vec3 and the type passed" )
+	end	
+end
+
+-- function for overloading the * operator for quat (tests which parameter is a scalar)
+function M.mulQuatOperator( a, b )
+	typeB = coTypeOf( b )
+	if typeB == "glm.Quat" then
+		return M.mulQuat( a, b )
+	elseif typeB == "glm.Vec3" then
+		return M.mulQuatVec( a, b )
+	else
+		error( "there is no operation between a glm.vec3 and the type passed" )
+	end	
 end
 
 -- function for overloading the * operator for vec3 (tests which parameter is a scalar)
 function M.vecDivOperator( a, b )
 	if type( b ) == "number" then
-		return M.divVec( a, b )
+		return M.divVecScalar( a, b )
 	end
-	return M.divVec( b, a )
+	return M.divVecScalar( b, a )
 end
 
 -- operator needs to check combinations of vec3, mat4 and scalar
@@ -267,16 +393,20 @@ function M.matMulOperator( a, b )
 	if not typeA then
 		return M.mulScalar( b, a )
 	elseif typeB == "glm.Mat4" then
-		return M.mul( a, b )
+		return M.mulMat( a, b )
 	elseif not typeB then
-		return M.mulScalar( a, b )
+		return M.mulMatScalar( a, b )
 	elseif typeB == "glm.Vec3" then
 		return M.transform( a, b )
 	else
-		error( "there is no operation between a glm.mat4 and " .. typeB )
+		error( "there is no operation between a glm.mat4 and the type passed" )
 	end	
 end
 
+--operators for quat
+M.zeroQuat = co.new "glm.Mat4"
+local quatMT = getmetatable( M.zeroQuat )
+quatMT.__mul = M.quatMulOperator
 
 -- operators for mat4
 M.idMat = co.new "glm.Mat4"
