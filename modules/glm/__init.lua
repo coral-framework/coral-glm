@@ -1,8 +1,8 @@
 local M = {}
 
--------------------------------------------
---                  Types                --
--------------------------------------------
+-------------------------------------------------------------------------------
+-- Types constructors
+-------------------------------------------------------------------------------
 function M.vec3( x, y, z )
 	out = co.new "glm.Vec3"
 	if z then
@@ -19,24 +19,21 @@ function  M.quat()
 	return co.new "glm.Quat"
 end
 
------------------------------------------------------
---                 Functions		               --
--- All the functions mimics GLSL API. Except for   --
--- an optional "out" parameter that be used as     --
--- return value for efficiency. All functions      --
--- create and return a new type if "out" is nil.   --
--- Do not pass the same reference to a function`s  --
--- second parameter and out. eg: 				   --	
--- local v = glm.vec3(); glm.cross( otherV, v, v ) --
------------------------------------------------------
---------------------------------------------
---           Vec3 functions               --
---------------------------------------------
+--[[---------------------------------------------------------------------------
+	All the functions mimics GLSL API. Except for an optional "out" parameter 
+	that be used as	return value for efficiency. All functions create and 
+	return a new type if "out" is nil. Do not pass the same reference to a 
+	function's second parameter and out. 
+		eg: 
+			local v = glm.vec3(); glm.cross( otherV, v, v )
+--]]---------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
+-- Vec3 functions
+-------------------------------------------------------------------------------
 -- returns the Vec3 cross product of Vec3 v1 against v2
 function M.crossVec( v1, v2, out )
 	out = out or co.new "glm.Vec3"
-	
 	out:copy( v1 )
 	out:cross( v2 )
 	return out	
@@ -82,8 +79,9 @@ function M.setXYZ( v, x, y, z )
 	v:setXYZ( x, y, z )
 end
 
-------------- Basic Operations -----------
-
+-------------------------------------------------------------------------------
+-- Basic Operations
+-------------------------------------------------------------------------------
 -- returns the Vec3 result of the Vec3 v1 + Vec3 v2
 function M.addVec( v1, v2, out )
 	out = out or co.new "glm.Vec3"
@@ -138,10 +136,9 @@ function M.mulQuatVec( q, v, out )
 	return out	
 end
 
---------------------------------------------
---           Mat4 functions               --
---------------------------------------------
-
+-------------------------------------------------------------------------------
+-- Mat4 functions 
+-------------------------------------------------------------------------------
 -- returns m[i][j]
 function M.getElement( m, i, j )
 	return m:getElement( i, j )
@@ -154,10 +151,7 @@ function M.fromQuat( q, out )
 	return out
 end
 
-
--------- Basic Algebric operations ---------
-
--- returns the identity matrix
+-- basic algebric operations returns the identity matrix
 function M.identity( out ) 
 	out = out or co.new "glm.Mat4"
 	out:identity()
@@ -243,8 +237,9 @@ function M.mulMatScalar( m, s, out )
 	return out
 end
 
-------------- Camera Operations ------------
-
+-------------------------------------------------------------------------------
+-- Camera Operations functions 
+-------------------------------------------------------------------------------
 -- parameters: vec3 eye, vec3 center and vec3 up
 function M.lookAt( eye, center, up, out )
 	out = out or co.new "glm.Mat4"
@@ -273,10 +268,9 @@ function M.frustum( left, right, bottom, top, nearVal, farVal, out )
 	return out
 end
 
---------------------------------------------
---           Quat functions               --
---------------------------------------------
-
+-------------------------------------------------------------------------------
+-- Quat functions 
+-------------------------------------------------------------------------------
 -- gets Quat q Scalar x,y,z,w coordinates
 function M.getXYZW( q )
 	return q:getXYZW()
@@ -354,10 +348,9 @@ function M.rotateQuat( q, degrees, axis, out )
 	return out
 end
 
---------------------------------------------
---          Specific operators            --
---------------------------------------------
-
+-------------------------------------------------------------------------------
+-- Specific operators 
+-------------------------------------------------------------------------------
 local coTypeOf = co.typeOf
 
 -- function for overloading the * operator for vec3 (tests which parameter is a scalar)

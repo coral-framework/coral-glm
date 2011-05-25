@@ -1,4 +1,3 @@
-
 native class Mat4( <glm.hpp> glm::precision::highp_mat4x4 )
 {
 	double getElement( in int32 i, in int32 j );
