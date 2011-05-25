@@ -31,6 +31,9 @@ native class Vec3( <glm.hpp> glm::precision::highp_vec3 )
 	// Returns the vector length
 	double length();
 	
+	// Returns the LERP result between this and v by factor
+	void mix( in Vec3 v, in double factor );
+	
 	// Normalizes this to the length of 1
 	void normalize();
 	

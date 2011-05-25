@@ -76,6 +76,11 @@ double Vec3_Adapter::length( glm::Vec3& instance )
 	return glm::length( instance );
 }
 
+void Vec3_Adapter::mix( glm::Vec3& instance, const glm::Vec3& v, double factor )
+{
+	instance = glm::mix( instance, v, factor );
+}
+
 void Vec3_Adapter::mul( glm::Vec3& instance, double value )
 {
 	instance *= value;

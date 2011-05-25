@@ -53,6 +53,15 @@ function M.length( v )
 end
 
 -- returns the Vec3 normalized copy Vec3 v
+function M.lerp( v1, v2, factor, out )
+	out = out or co.new "glm.Vec3"
+	
+	out:copy( v1 )
+	out:mix( v2, factor )
+	return out	
+end
+
+-- returns the Vec3 normalized copy Vec3 v
 function M.normalize( v, out )
 	out = out or co.new "glm.Vec3"
 	
