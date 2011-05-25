@@ -116,16 +116,16 @@ function M.mulVecQuat( v, q, out )
 	out = out or co.new "glm.Vec3"
 	
 	out:copy( v )
-	out:vecmulQuat( q )
+	out:mulVecQuat( q )
 	return out	
 end
 
 -- returns the Vec3 result of Quat q * Vec3 v
-function M.mulQuatVec( v, q, out )
+function M.mulQuatVec( q, v, out )
 	out = out or co.new "glm.Vec3"
 	
 	out:copy( v )
-	out:quatVecMul( q )
+	out:mulQuatVec( q )
 	return out	
 end
 
@@ -328,16 +328,16 @@ function M.mulQuat( q1, q2, out )
 end
 
 -- returns the Quat result of shortest path SLERP between Quat q1 and q2 
-function M.mix( q1, q2, out )
+function M.mix( q1, q2, factor, out )
 	out = out or co.new "glm.Quat"
 	
 	out:copy( q1 )
-	out:mix( q2 )
+	out:mix( q2, factor )
 	return out
 end
 
 -- rotates a copy of Quat q by Scalar degrees around Vec3 axis and returns it
-function M.rotate( q, degrees, axis, out )
+function M.rotateQuat( q, degrees, axis, out )
 	out = out or co.new "glm.Quat"
 	
 	out:copy( q )
@@ -367,7 +367,7 @@ function M.vecMulOperator( a, b )
 end
 
 -- function for overloading the * operator for quat (tests which parameter is a scalar)
-function M.mulQuatOperator( a, b )
+function M.quatMulOperator( a, b )
 	typeB = coTypeOf( b )
 	if typeB == "glm.Quat" then
 		return M.mulQuat( a, b )
@@ -404,7 +404,7 @@ function M.matMulOperator( a, b )
 end
 
 --operators for quat
-M.zeroQuat = co.new "glm.Mat4"
+M.zeroQuat = co.new "glm.Quat"
 local quatMT = getmetatable( M.zeroQuat )
 quatMT.__mul = M.quatMulOperator
 

@@ -110,3 +110,16 @@ function normLengthTest()
 	glm.normalize( v1, v2 )
 	ASSERT_VEC_EQ( v2, glm.vec3( 0, 3/5, 4/5 ) )
 end
+
+function quatMulTest()
+	v1 = glm.vec3( 1, 0, 0 )
+	local q = glm.quat()
+	glm.rotateQuat( q, 90, glm.vec3( 0, 1, 0 ), q )
+	v2 = glm.vec3( 0, 0, -1 )
+	v1 = q * v1
+	ASSERT_VEC_EQ( v1, v2 )
+	v1 = glm.vec3( 1, 0, 0 )
+	v2 = glm.vec3( 0, 0, 1 )
+	v1 = v1 * q
+	ASSERT_VEC_EQ( v1, v2 )	
+end

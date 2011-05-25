@@ -124,3 +124,16 @@ function operatorsTest()
 		end
 	end
 end
+
+function fromQuatTest()
+	local q = glm.quat()
+	glm.setXYZW( q, 0, 1, 0, 0 )
+	m1 = glm.mat4()
+	glm.rotate( m1, 180, glm.vec3( 0, 1, 0 ), m1 )
+	m2 = glm.fromQuat( q )
+	for i = 0,3 do
+		for j = 0,3 do
+			ASSERT_DOUBLE_EQ( glm.getElement( m1, i, j ), glm.getElement( m2, i, j ) )
+		end
+	end
+end

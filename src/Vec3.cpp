@@ -81,12 +81,12 @@ void Vec3_Adapter::mul( glm::Vec3& instance, double value )
 	instance *= value;
 }
 
-void Vec3_Adapter::vecQuatMul( glm::Vec3& instance, const glm::Quat& q )
+void Vec3_Adapter::mulVecQuat( glm::Vec3& instance, const glm::Quat& q )
 {
 	instance = instance * q;
 }
 
-void Vec3_Adapter::quatVecMul( glm::Vec3& instance, const glm::Quat& q )
+void Vec3_Adapter::mulQuatVec( glm::Vec3& instance, const glm::Quat& q )
 {
 	instance = q * instance;
 }
