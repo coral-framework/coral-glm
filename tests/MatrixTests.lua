@@ -137,3 +137,17 @@ function fromQuatTest()
 		end
 	end
 end
+
+function rotationFromToTest()
+	local v1 = glm.vec3( 1, 1, 1 )
+	local v2 = glm.vec3( 0, 10, 23 )
+	local m = glm.mat4()
+	glm.rotationFromToMat4( v1, v2, m )
+	glm.normalize( m * v1, v1 )
+	glm.normalize( v2, v2 )
+	local x1,y1,z1 = glm.getXYZ( v1 )
+	local x2,y2,z2 = glm.getXYZ( v2 )
+	ASSERT_DOUBLE_EQ( x1, x2 )
+	ASSERT_DOUBLE_EQ( y1, y2 )
+	ASSERT_DOUBLE_EQ( z1, z2 )
+end

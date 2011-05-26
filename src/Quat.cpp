@@ -96,11 +96,19 @@ void Quat_Adapter::mul( glm::Quat& instance, const glm::Quat& q )
 {
 	instance = instance * q;
 }
-
 	
 void Quat_Adapter::rotate( glm::Quat& instance, double degrees, const glm::Vec3& axis )
 {
 	instance = glm::gtc::quaternion::rotate( instance, degrees, axis );
+}
+
+void Quat_Adapter::rotationFromTo( glm::Quat& instance, const glm::Vec3& from, const glm::Vec3& to  )
+{
+	glm::Vec3 nFrom = glm::normalize( from );
+	glm::Vec3 nTo =  glm::normalize( to );
+	double angle = glm::acos( glm::dot( nFrom, nTo ) ) * 180 / 3.14159265;
+	glm::Vec3 axis = glm::cross( nFrom, nTo );
+	instance = glm::gtc::quaternion::rotate(  glm::Quat(), angle, axis );
 }
 
 void Quat_Adapter::setXYZW( glm::Quat& instance, double x, double y, double z, double w )

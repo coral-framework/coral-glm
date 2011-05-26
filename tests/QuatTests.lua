@@ -77,6 +77,20 @@ function mixRotTest()
 	ASSERT_QUAT_EQ( q1, q2 )
 end
 
+function rotationFromToTest()
+	local v1 = glm.vec3( 1, 1, 1 )
+	local v2 = glm.vec3( 10, 20, 30 )
+	local q = glm.quat()
+	glm.rotationFromToQuat( v1, v2, q )
+	glm.normalize( q * v1, v1 )
+	glm.normalize( v2, v2 )
+	local x1,y1,z1 = glm.getXYZ( v1 )
+	local x2,y2,z2 = glm.getXYZ( v2 )
+	ASSERT_DOUBLE_EQ( x1, x2 )
+	ASSERT_DOUBLE_EQ( y1, y2 )
+	ASSERT_DOUBLE_EQ( z1, z2 )
+end
+
 function operatorTest()
 	q1 = glm.quat()
 	q2 = glm.quat()

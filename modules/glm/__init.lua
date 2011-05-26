@@ -185,6 +185,14 @@ function M.rotate( m, degrees, axis, out )
 	return out	
 end
 
+-- returns a Mat4 that rotates a direction from Vec3 from to Vec3 to
+function M.rotationFromToMat4( from, to, out )
+	out = out or co.new "glm.Mat4"
+	
+	out:rotationFromTo( from, to )
+	return out	
+end
+
 -- scales a copy of m by the amount on each axis of Vec3 scale and returns it
 function M.scale( m, scale, out )
 	out = out or co.new "glm.Mat4"
@@ -346,6 +354,14 @@ function M.rotateQuat( q, degrees, axis, out )
 	out:copy( q )
 	out:rotate( degrees, axis )
 	return out
+end
+
+-- returns a Quat that rotates a direction from Vec3 from to Vec3 to
+function M.rotationFromToQuat( from, to, out )
+	out = out or co.new "glm.Quat"
+	
+	out:rotationFromTo( from, to )
+	return out	
 end
 
 -------------------------------------------------------------------------------
