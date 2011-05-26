@@ -367,6 +367,11 @@ end
 -------------------------------------------------------------------------------
 -- Specific operators 
 -------------------------------------------------------------------------------
+
+function M.deg2rad( deg )
+	return (deg/180)*PI	
+end
+
 local coTypeOf = co.typeOf
 
 -- function for overloading the * operator for vec3 (tests which parameter is a scalar)
@@ -420,6 +425,9 @@ function M.matMulOperator( a, b )
 		error( "there is no operation between a glm.mat4 and the type passed" )
 	end	
 end
+
+--PI value
+local PI = 3.1415926535
 
 --operators for quat
 M.zeroQuat = co.new "glm.Quat"
