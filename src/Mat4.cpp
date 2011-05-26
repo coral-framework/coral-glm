@@ -74,6 +74,15 @@ void Mat4_Adapter::rotate( glm::Mat4& instance, double degrees, const glm::Vec3&
 	instance = gtc::matrix_transform::rotate(  instance, degrees, axis );
 }
 
+void Mat4_Adapter::rotationFromTo( glm::Mat4& instance, const glm::Vec3& from, const glm::Vec3& to )
+{
+	glm::Vec3 nFrom = glm::normalize( from );
+	glm::Vec3 nTo =  glm::normalize( to );
+	double angle = glm::dot( nFrom, nTo );
+	glm::Vec3 axis = glm::cross( nFrom, nTo );
+	instance = gtc::matrix_transform::rotate(  instance, angle, axis );
+}
+
 void Mat4_Adapter::scale( glm::Mat4& instance, const glm::Vec3& scale )
 {
 	instance = gtc::matrix_transform::scale( instance, scale );

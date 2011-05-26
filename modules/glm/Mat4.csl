@@ -17,6 +17,7 @@ native class Mat4( <glm.hpp> glm::precision::highp_mat4x4 )
 	void lookAt( in Vec3 eye, in Vec3 center, in Vec3 up );
 	void ortho( in double left, in double right, in double bottom, in double up );
 	void perspective( in double fovy, in double aspect, in double zNear, in double zFar );
+    void rotationFromTo( in Vec3 from, in Vec3 to );
 
 	void preMul( in Mat4 m );
 	void posMul( in Mat4 m );
