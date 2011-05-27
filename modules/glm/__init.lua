@@ -28,6 +28,12 @@ end
 			local v = glm.vec3(); glm.cross( otherV, v, v )
 --]]---------------------------------------------------------------------------
 
+-- transforms given coordinates to [-1,1] space within given half interval
+-- returns two values: normalized value of x and of y
+function M.normalizeCoordinates( x, y, halfXInterfal, halfXInterval )
+	return ( x / halfXInterfal ) - 1.0, ( y / halfXInterval  ) - 1.0
+end
+
 -------------------------------------------------------------------------------
 -- Vec3 functions
 -------------------------------------------------------------------------------
@@ -369,7 +375,7 @@ end
 -------------------------------------------------------------------------------
 
 function M.deg2rad( deg )
-	return (deg/180)*PI	
+	return ( deg / 180 ) * M.PI	
 end
 
 local coTypeOf = co.typeOf
@@ -427,7 +433,7 @@ function M.matMulOperator( a, b )
 end
 
 --PI value
-local PI = 3.1415926535
+M.PI = 3.1415926535
 
 --operators for quat
 M.zeroQuat = co.new "glm.Quat"
