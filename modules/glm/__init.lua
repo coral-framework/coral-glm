@@ -3,7 +3,7 @@ local M = {}
 -------------------------------------------------------------------------------
 -- Types constructors
 -------------------------------------------------------------------------------
-function M.vec3( x, y, z )
+function M.Vec3( x, y, z )
 	out = co.new "glm.Vec3"
 	if z then
 		out:setXYZ( x, y, z )
@@ -11,11 +11,11 @@ function M.vec3( x, y, z )
 	return out
 end
 
-function M.mat4()
+function M.Mat4()
 	return co.new "glm.Mat4"
 end
 
-function  M.quat()
+function  M.Quat()
 	return co.new "glm.Quat"
 end
 
