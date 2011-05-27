@@ -16,33 +16,33 @@ local m3
 local m4
 
 function elementIdRST()
-	m1 = glm.mat4()
-	m2 = glm.mat4()
+	m1 = glm.Mat4()
+	m2 = glm.Mat4()
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 0 ), 1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 1, 1 ), 1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 2, 0 ), 0 )
 	
-	glm.rotate( m1, 90, glm.vec3( 0, 1, 0 ),  m1 )
+	glm.rotate( m1, 90, glm.Vec3( 0, 1, 0 ),  m1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 0 ), 0 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 2 ), -1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 2, 0 ), 1 )
 	
-	glm.scale( m2, glm.vec3( 2, 2, 2 ), m2 )
+	glm.scale( m2, glm.Vec3( 2, 2, 2 ), m2 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m2, 0, 0 ), 2 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m2, 1, 1 ), 2 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m2, 2, 2 ), 2 )
 	
 	glm.identity( m1 )
-	glm.translate( m1, glm.vec3( 2, 2, 2 ), m1 )
+	glm.translate( m1, glm.Vec3( 2, 2, 2 ), m1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 0 ), 2 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 1 ), 2	)
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), 2 )
 end
 
 function invTranpTest()
-	m1 = glm.mat4()
+	m1 = glm.Mat4()
 	
-	glm.translate( m1, glm.vec3( 2, 2, 2 ), m1 )
+	glm.translate( m1, glm.Vec3( 2, 2, 2 ), m1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 0 ), 2 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 1 ), 2	)
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), 2 )
@@ -59,7 +59,7 @@ function invTranpTest()
 end
 
 function cameraTest()
-	m1 = glm.lookAt( glm.vec3( 0, 0, -1 ), glm.vec3( 0, 0, 1 ), glm.vec3( 0, 1, 0 ) )
+	m1 = glm.lookAt( glm.Vec3( 0, 0, -1 ), glm.Vec3( 0, 0, 1 ), glm.Vec3( 0, 1, 0 ) )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 0 ), -1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 2, 2 ), -1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), -1 )
@@ -86,15 +86,15 @@ function cameraTest()
 end
 
 function operatorsTest()
-	local v1 = glm.vec3( 0, 0, 0 )
-	m1 = glm.mat4()
+	local v1 = glm.Vec3( 0, 0, 0 )
+	m1 = glm.Mat4()
 	
 	v1 = m1 * v1
 	ASSERT_DOUBLE_EQ( v1.x, 0 )
 	ASSERT_DOUBLE_EQ( v1.y, 0 )
 	ASSERT_DOUBLE_EQ( v1.z, 0 )
 	
-	m1 = glm.translate( m1, glm.vec3( 2, 2, 2 ) )
+	m1 = glm.translate( m1, glm.Vec3( 2, 2, 2 ) )
 	v1 = m1 * v1
 	ASSERT_DOUBLE_EQ( v1.x, 2 )
 	ASSERT_DOUBLE_EQ( v1.y, 2 )
@@ -126,10 +126,10 @@ function operatorsTest()
 end
 
 function fromQuatTest()
-	local q = glm.quat()
+	local q = glm.Quat()
 	glm.setXYZW( q, 0, 1, 0, 0 )
-	m1 = glm.mat4()
-	glm.rotate( m1, 180, glm.vec3( 0, 1, 0 ), m1 )
+	m1 = glm.Mat4()
+	glm.rotate( m1, 180, glm.Vec3( 0, 1, 0 ), m1 )
 	m2 = glm.fromQuat( q )
 	for i = 0,3 do
 		for j = 0,3 do
@@ -139,9 +139,9 @@ function fromQuatTest()
 end
 
 function rotationFromToTest()
-	local v1 = glm.vec3( 1, 1, 1 )
-	local v2 = glm.vec3( 0, 10, 23 )
-	local m = glm.mat4()
+	local v1 = glm.Vec3( 1, 1, 1 )
+	local v2 = glm.Vec3( 0, 10, 23 )
+	local m = glm.Mat4()
 	glm.rotationFromToMat4( v1, v2, m )
 	glm.normalize( m * v1, v1 )
 	glm.normalize( v2, v2 )
