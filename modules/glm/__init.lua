@@ -28,11 +28,22 @@ end
 			local v = glm.vec3(); glm.cross( otherV, v, v )
 --]]---------------------------------------------------------------------------
 
--- transforms given coordinates to [-1,1] space within given half interval
--- returns two values: normalized value of x and of y
-function M.normalizeCoordinates( x, y, halfXInterfal, halfXInterval )
-	return ( x / halfXInterfal ) - 1.0, ( y / halfXInterval  ) - 1.0
+--[[
+	transforms given coordinates to [-1,1] (OpenGL like) space within given interval
+	returns two values: normalized value of x and of y (assumes both screen and clip space
+	to have y upwards)
+--]]
+function M.screenToClip( x, y, width, height )
+	local cw = math.floor( width * 0.5 )
+	local ch = math.floor( height * 0.5 )	
+	return ( x / cw ) - 1.0, ( y / ch ) - 1.0
 end
+
+-- Constants
+M.PI = 3.1415926535
+M.PI_2 = M.PI * 0.5
+M.rad2deg = 180 / M.PI
+M.deg2rad = M.PI / 180
 
 -------------------------------------------------------------------------------
 -- Vec3 functions
@@ -295,6 +306,11 @@ function M.setXYZW( q, x, y, z, w )
 	q:setXYZW( x, y, z, w )
 end
 
+-- returns the Scalar degrees Scalar x,y,z,w coordinates
+function M.getAngleAxis( q )
+	return q:getAngleAxis()
+end
+
 -- returns a Quat containing the rotation of Mat4 m
 function M.fromMat4( m, out )
 	out = out or co.new "glm.Quat"
@@ -373,11 +389,6 @@ end
 -------------------------------------------------------------------------------
 -- Specific operators 
 -------------------------------------------------------------------------------
-
-function M.deg2rad( deg )
-	return ( deg / 180 ) * M.PI	
-end
-
 local coTypeOf = co.typeOf
 
 -- function for overloading the * operator for vec3 (tests which parameter is a scalar)
@@ -432,8 +443,7 @@ function M.matMulOperator( a, b )
 	end	
 end
 
---PI value
-M.PI = 3.1415926535
+
 
 --operators for quat
 M.zeroQuat = co.new "glm.Quat"

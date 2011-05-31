@@ -38,6 +38,9 @@ ENDIF()
 # install shared library
 INSTALL( DIRECTORY ${CMAKE_BINARY_DIR}/modules/glm DESTINATION modules )
 
+#install g-truc glm headers
+INSTALL( DIRECTORY ${CMAKE_SOURCE_DIR}/include/glm DESTINATION include )
+
 # install CSL files
 INSTALL( DIRECTORY ${CMAKE_SOURCE_DIR}/modules/ DESTINATION modules )
 

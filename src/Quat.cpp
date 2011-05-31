@@ -9,6 +9,12 @@
 
 namespace glm {
 
+void Quat_Adapter::getAngleAxis( glm::Quat& instance, double& degrees, glm::Vec3& axis )
+{
+	degrees = glm::gtx::quaternion::angle( instance );
+	axis = glm::gtx::quaternion::axis( instance );
+}
+
 double Quat_Adapter::getW( glm::Quat& instance )
 {
 	return instance.w;

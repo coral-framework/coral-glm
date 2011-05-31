@@ -7,6 +7,7 @@ native class Quat( <gtx/quaternion.hpp> glm::dquat )
 	
 	void setXYZW( in double x, in double y, in double z, in double w );	
 	void getXYZW( out double x, out double y, out double z, out double w );
+	void getAngleAxis( out double degrees, out Vec3 axis );
 
 	void conjugate();
 	void cross( in Quat q );
