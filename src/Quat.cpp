@@ -11,7 +11,7 @@ namespace glm {
 
 void Quat_Adapter::getAngleAxis( glm::Quat& instance, double& degrees, glm::Vec3& axis )
 {
-	degrees = glm::gtx::quaternion::angle( instance );
+	degrees = glm::degrees( glm::gtx::quaternion::angle( instance ) );
 	axis = glm::gtx::quaternion::axis( instance );
 }
 
@@ -114,7 +114,7 @@ void Quat_Adapter::rotationFromTo( glm::Quat& instance, const glm::Vec3& from, c
 	glm::Vec3 nTo =  glm::normalize( to );
 	double angle = glm::acos( glm::dot( nFrom, nTo ) ) * 180 / 3.14159265;
 	glm::Vec3 axis = glm::cross( nFrom, nTo );
-	instance = glm::gtc::quaternion::rotate(  glm::Quat(), angle, axis );
+	instance = glm::gtc::quaternion::rotate( glm::Quat(), angle, axis );
 }
 
 void Quat_Adapter::setXYZW( glm::Quat& instance, double x, double y, double z, double w )

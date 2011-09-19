@@ -95,6 +95,30 @@ function rotationFromToTest()
 	ASSERT_QUAT_EQ( qConjugate, glm.conjugate( q ) ) 
 end
 
+function getAngleAxisTest()
+	local q = glm.Quat()
+	glm.setXYZW( q, 0, 1, 0, 0 )
+	glm.rotateQuat( q, 180, glm.Vec3( 0, 1, 0 ) )
+	
+	local angle, axis = glm.getAngleAxis( q )
+	ASSERT_DOUBLE_EQ( angle, 180, "angle comparison" )
+	ASSERT_DOUBLE_EQ( axis.x, 0, "x axis comparison" )
+	ASSERT_DOUBLE_EQ( axis.y, 1, "y axis comparison" )
+	ASSERT_DOUBLE_EQ( axis.z, 0, "z axis comparison" )
+end
+
+function getAngleAxisTest2()
+	local q = glm.Quat()
+	glm.setXYZW( q, 0, 1, 0, 0 )
+	glm.rotateQuat( q, 180, glm.Vec3( 1, 0, 0 ) )
+	
+	local angle, axis = glm.getAngleAxis( q )
+	ASSERT_DOUBLE_EQ( angle, 180, "angle comparison" )
+	ASSERT_DOUBLE_EQ( axis.x, 0, "x axis comparison" )
+	ASSERT_DOUBLE_EQ( axis.y, 1, "y axis comparison" )
+	ASSERT_DOUBLE_EQ( axis.z, 0, "z axis comparison" )
+end
+
 function operatorTest()
 	q1 = glm.Quat()
 	q2 = glm.Quat()

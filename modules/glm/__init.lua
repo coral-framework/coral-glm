@@ -61,12 +61,12 @@ function M.dotVec( v1, v2 )
 	return v1:dot( v2 )
 end
 
--- returns the float dot product of Vec3 v1 and v2  
+-- returns the length o vector v
 function M.length( v )
 	return v:length()
 end
 
--- returns the Vec3 normalized copy Vec3 v
+-- returns the Vec3 linear interpolation from v1 to v2 at position 'factor'
 function M.lerp( v1, v2, factor, out )
 	out = out or co.new "glm.Vec3"
 	
@@ -442,8 +442,6 @@ function M.matMulOperator( a, b )
 		error( "there is no operation between a glm.mat4 and the type passed" )
 	end	
 end
-
-
 
 --operators for quat
 M.zeroQuat = co.new "glm.Quat"
