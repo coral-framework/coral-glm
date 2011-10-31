@@ -15,7 +15,7 @@ function M.Mat4()
 	return co.new "glm.Mat4"
 end
 
-function  M.Quat()
+function  M.Quat( other )
 	return co.new "glm.Quat"
 end
 

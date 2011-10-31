@@ -13,8 +13,8 @@ ADD_LIBRARY( glm MODULE ${_HEADER_FILES} ${_SOURCE_FILES} ${_MODULE_SOURCES} )
 
 TARGET_LINK_LIBRARIES( glm ${CORAL_LIBRARIES} )
 
-CORAL_DEFAULT_TARGET_PROPERTIES( glm )
-CORAL_MODULE_TARGET_PROPERTIES( glm )
+CORAL_TARGET( glm )
+CORAL_MODULE_TARGET( glm )
 
 ################################################################################
 # Source Groups
