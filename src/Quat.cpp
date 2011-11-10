@@ -5,7 +5,6 @@
  */
 
 #include "Quat_Adapter.h"
-#include <gtx/quaternion.hpp>
 
 namespace glm {
 

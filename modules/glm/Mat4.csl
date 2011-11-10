@@ -1,18 +1,27 @@
-native class Mat4( <glm.hpp> glm::precision::highp_mat4x4 )
+@co.Include( "glm/glm.hpp" )
+native class Mat4
 {
+	<c++
+		#ifdef glm_glm
+			namespace glm { typedef highp_mat4x4 Mat4; }
+		#else
+			namespace glm { class Mat4; }
+		#endif
+	c++>
+
 	double getElement( in int32 i, in int32 j );
 
 	void rotate( in double degrees, in Vec3 axis );
 	void translate( in Vec3 position );
 	void scale( in Vec3 scale );
-	
+
 	void identity();
 	void invert();
 	void transpose();
-	
+
 	void copy( in Mat4 m );
 	void fromQuat( in Quat q );
-	
+
 	void frustum( in double left, in double right, in double bottom, in double up, in double nearVal, in double farVal );
 	void lookAt( in Vec3 eye, in Vec3 center, in Vec3 up );
 	void ortho( in double left, in double right, in double bottom, in double up );

@@ -1,9 +1,9 @@
 #include "Mat4_Adapter.h"
-#include <gtc/matrix_transform.hpp>
-#include <gtc/quaternion.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace glm {
-	
+
 void Mat4_Adapter::add( glm::Mat4& instance, const glm::Mat4& m )
 {
 	instance += m;
