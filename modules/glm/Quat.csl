@@ -2,14 +2,11 @@
 native class Quat
 {
 	<c++
-		#ifdef glm_glm
-			#ifndef glm_gtc_quaternion
-				#include <glm/gtx/quaternion.hpp>
-			#endif
-			namespace glm { typedef dquat Quat; }
-		#else
-			namespace glm { class Quat; }
+		#include <glm/glm.hpp>
+		#ifndef glm_gtc_quaternion
+			#include <glm/gtx/quaternion.hpp>
 		#endif
+		namespace glm { typedef dquat Quat; }
 	c++>
 
 	double x;

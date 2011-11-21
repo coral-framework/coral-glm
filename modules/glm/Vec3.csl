@@ -2,11 +2,8 @@
 native class Vec3
 {
 	<c++
-		#ifdef glm_glm
-			namespace glm { typedef highp_vec3 Vec3; }
-		#else
-			namespace glm { class Vec3; }
-		#endif
+		#include <glm/glm.hpp>
+		namespace glm { typedef highp_vec3 Vec3; }
 	c++>
 
 	double x;
