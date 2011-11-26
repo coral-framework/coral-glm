@@ -1,11 +1,8 @@
-@co.Include( "glm/glm.hpp" )
+@co.Include( "glm/gtx/quaternion.hpp" )
 native class Quat
 {
 	<c++
-		#include <glm/glm.hpp>
-		#ifndef glm_gtc_quaternion
-			#include <glm/gtx/quaternion.hpp>
-		#endif
+		#include <glm/gtx/quaternion.hpp>
 		namespace glm { typedef dquat Quat; }
 	c++>
 
