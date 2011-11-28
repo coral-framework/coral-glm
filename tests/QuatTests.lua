@@ -2,21 +2,21 @@
 -- Setup
 -----------------------------
 
-require "testkit.Unit"
-
 local glm = require "glm"
+
+local DOUBLE_TOLERANCE = 1e-7
 
 -----------------------------
 -- Quaternion Tests
 -----------------------------
 
-local function ASSERT_QUAT_EQ( q1, q2, errorMsg )
+local function ASSERT_QUAT_EQ( q1, q2 )
 	local x1,y1,z1,w1 = glm.getXYZW( q1 )
 	local x2,y2,z2,w2 = glm.getXYZW( q2 )
-	ASSERT_DOUBLE_EQ( x1, x2, errorMsg )
-	ASSERT_DOUBLE_EQ( y1, y2, errorMsg )
-	ASSERT_DOUBLE_EQ( z1, z2, errorMsg )
-	ASSERT_DOUBLE_EQ( w1, w2, errorMsg )
+	ASSERT_NEAR( x1, x2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( y1, y2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( z1, z2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( w1, w2, DOUBLE_TOLERANCE )
 end
 
 local q1
@@ -33,7 +33,7 @@ function getSetMatTest()
 	m1 = glm.Mat4()
 	glm.rotate( m1, 180, glm.Vec3( 0, 1, 0 ), m1 )
 	glm.fromMat4( m1, q1 )
-	ASSERT_QUAT_EQ( q1, q2, "Error! :(" )
+	ASSERT_QUAT_EQ( q1, q2 )
 	
 end
 
@@ -49,7 +49,7 @@ function dotCrossConjTest()
 	local result = glm.dotQuat( q1, q2 )
 	q1 = glm.crossQuat( q1, q2 )
 	glm.setXYZW( q2, 0, 1, -1, 1 )
-	ASSERT_DOUBLE_EQ( result, -1, "Error" )
+	ASSERT_DOUBLE_EQ( result, -1 )
 	ASSERT_QUAT_EQ( q1, q2 )
 end
 
@@ -88,9 +88,9 @@ function rotationFromToTest()
 	glm.normalize( v2, v2 )
 	local x1,y1,z1 = glm.getXYZ( v1 )
 	local x2,y2,z2 = glm.getXYZ( v2 )
-	ASSERT_DOUBLE_EQ( x1, x2 )
-	ASSERT_DOUBLE_EQ( y1, y2 )
-	ASSERT_DOUBLE_EQ( z1, z2 )
+	ASSERT_NEAR( x1, x2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( y1, y2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( z1, z2, DOUBLE_TOLERANCE )
 	
 	ASSERT_QUAT_EQ( qConjugate, glm.conjugate( q ) ) 
 end
@@ -101,10 +101,10 @@ function getAngleAxisTest()
 	glm.rotateQuat( q, 180, glm.Vec3( 0, 1, 0 ) )
 	
 	local angle, axis = glm.getAngleAxis( q )
-	ASSERT_DOUBLE_EQ( angle, 180, "angle comparison" )
-	ASSERT_DOUBLE_EQ( axis.x, 0, "x axis comparison" )
-	ASSERT_DOUBLE_EQ( axis.y, 1, "y axis comparison" )
-	ASSERT_DOUBLE_EQ( axis.z, 0, "z axis comparison" )
+	ASSERT_NEAR( angle, 180 )
+	ASSERT_NEAR( axis.x, 0 )
+	ASSERT_NEAR( axis.y, 1 )
+	ASSERT_NEAR( axis.z, 0 )
 end
 
 function getAngleAxisTest2()
@@ -113,10 +113,10 @@ function getAngleAxisTest2()
 	glm.rotateQuat( q, 180, glm.Vec3( 1, 0, 0 ) )
 	
 	local angle, axis = glm.getAngleAxis( q )
-	ASSERT_DOUBLE_EQ( angle, 180, "angle comparison" )
-	ASSERT_DOUBLE_EQ( axis.x, 0, "x axis comparison" )
-	ASSERT_DOUBLE_EQ( axis.y, 1, "y axis comparison" )
-	ASSERT_DOUBLE_EQ( axis.z, 0, "z axis comparison" )
+	ASSERT_DOUBLE_EQ( angle, 180, DOUBLE_TOLERANCE )
+	ASSERT_DOUBLE_EQ( axis.x, 0, DOUBLE_TOLERANCE )
+	ASSERT_DOUBLE_EQ( axis.y, 1, DOUBLE_TOLERANCE )
+	ASSERT_DOUBLE_EQ( axis.z, 0, DOUBLE_TOLERANCE )
 end
 
 function operatorTest()

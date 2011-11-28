@@ -2,13 +2,13 @@
 -- Setup
 -----------------------------
 
-require "testkit.Unit"
-
 local glm = require "glm"
 
 -----------------------------
 -- Matrix Tests
 -----------------------------
+
+local DOUBLE_TOLERANCE = 1e-7
 
 local m1
 local m2
@@ -18,56 +18,56 @@ local m4
 function elementIdRST()
 	m1 = glm.Mat4()
 	m2 = glm.Mat4()
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 0 ), 1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 1, 1 ), 1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 2, 0 ), 0 )
+	ASSERT_NEAR( glm.getElement( m1, 0, 0 ), 1, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 1, 1 ), 1, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 2, 0 ), 0, DOUBLE_TOLERANCE )
 	
-	glm.rotate( m1, 90, glm.Vec3( 0, 1, 0 ),  m1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 0 ), 0 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 2 ), -1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 2, 0 ), 1 )
+	glm.rotate( m1, 90, glm.Vec3( 0, 1, 0 ),  m1, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 0, 0 ), 0, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 0, 2 ), -1, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 2, 0 ), 1, DOUBLE_TOLERANCE )
 	
 	glm.scale( m2, glm.Vec3( 2, 2, 2 ), m2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m2, 0, 0 ), 2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m2, 1, 1 ), 2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m2, 2, 2 ), 2 )
+	ASSERT_NEAR( glm.getElement( m2, 0, 0 ), 2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m2, 1, 1 ), 2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m2, 2, 2 ), 2, DOUBLE_TOLERANCE )
 	
 	glm.identity( m1 )
-	glm.translate( m1, glm.Vec3( 2, 2, 2 ), m1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 0 ), 2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 1 ), 2	)
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), 2 )
+	glm.translate( m1, glm.Vec3( 2, 2, 2 ), m1, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 3, 0 ), 2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 3, 1 ), 2, DOUBLE_TOLERANCE	)
+	ASSERT_NEAR( glm.getElement( m1, 3, 2 ), 2, DOUBLE_TOLERANCE )
 end
 
 function invTranpTest()
 	m1 = glm.Mat4()
 	
 	glm.translate( m1, glm.Vec3( 2, 2, 2 ), m1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 0 ), 2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 1 ), 2	)
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), 2 )
+	ASSERT_NEAR( glm.getElement( m1, 3, 0 ), 2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 3, 1 ), 2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 3, 2 ), 2, DOUBLE_TOLERANCE )
 	
 	glm.inverseMat( m1, m1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 0 ), -2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 1 ), -2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), -2 )
+	ASSERT_NEAR( glm.getElement( m1, 3, 0 ), -2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 3, 1 ), -2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 3, 2 ), -2, DOUBLE_TOLERANCE )
 	
 	glm.transpose( m1, m1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 3 ), -2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 1, 3 ), -2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 2, 3 ), -2 )
+	ASSERT_NEAR( glm.getElement( m1, 0, 3 ), -2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 1, 3 ), -2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m1, 2, 3 ), -2, DOUBLE_TOLERANCE )
 end
 
 function cameraTest()
 	m1 = glm.lookAt( glm.Vec3( 0, 0, -1 ), glm.Vec3( 0, 0, 1 ), glm.Vec3( 0, 1, 0 ) )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 0, 0 ), -1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 2, 2 ), -1 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m1, 3, 2 ), -1 )
+	ASSERT_NEAR( glm.getElement( m1, 0, 0 ), -1 )
+	ASSERT_NEAR( glm.getElement( m1, 2, 2 ), -1 )
+	ASSERT_NEAR( glm.getElement( m1, 3, 2 ), -1 )
 	
 	m2 = glm.frustum( -1, 1, -1, 1, 2, 4 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m2, 0, 0 ), 2 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m2, 2, 2 ), -3 )
-	ASSERT_DOUBLE_EQ( glm.getElement( m2, 3, 2 ), -8 )
+	ASSERT_NEAR( glm.getElement( m2, 0, 0 ), 2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m2, 2, 2 ), -3, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( glm.getElement( m2, 3, 2 ), -8, DOUBLE_TOLERANCE )
 	
 	m3 = glm.ortho( -1, 1, -1, 1 )
 	ASSERT_DOUBLE_EQ( glm.getElement( m3, 0, 0 ), 1 )
@@ -106,21 +106,21 @@ function operatorsTest()
 	local j
 	for i = 0,3 do
 		for j = 0,3 do
-			ASSERT_DOUBLE_EQ( glm.getElement( m3, i, j ), i == j and 1 or 0, "aaaa" )
+			ASSERT_NEAR( glm.getElement( m3, i, j ), i == j and 1 or 0, DOUBLE_TOLERANCE )
 		end
 	end
 	
 	m3 = m3 + m3 
 	for i = 0,3 do
 		for j = 0,3 do
-			ASSERT_DOUBLE_EQ( glm.getElement( m3, i, j ), i == j and 2 or 0, "bbbb" )
+			ASSERT_NEAR( glm.getElement( m3, i, j ), i == j and 2 or 0, DOUBLE_TOLERANCE )
 		end
 	end
 	
 	m3 = m3 * 2
 	for i = 0,3 do
 		for j = 0,3 do
-			ASSERT_DOUBLE_EQ( glm.getElement( m3, i, j ), i == j and 4 or 0 )
+			ASSERT_NEAR( glm.getElement( m3, i, j ), i == j and 4 or 0, DOUBLE_TOLERANCE )
 		end
 	end
 end
@@ -133,7 +133,7 @@ function fromQuatTest()
 	m2 = glm.fromQuat( q )
 	for i = 0,3 do
 		for j = 0,3 do
-			ASSERT_DOUBLE_EQ( glm.getElement( m1, i, j ), glm.getElement( m2, i, j ) )
+			ASSERT_NEAR( glm.getElement( m1, i, j ), glm.getElement( m2, i, j ), DOUBLE_TOLERANCE )
 		end
 	end
 end
@@ -147,7 +147,7 @@ function rotationFromToTest()
 	glm.normalize( v2, v2 )
 	local x1,y1,z1 = glm.getXYZ( v1 )
 	local x2,y2,z2 = glm.getXYZ( v2 )
-	ASSERT_DOUBLE_EQ( x1, x2 )
-	ASSERT_DOUBLE_EQ( y1, y2 )
-	ASSERT_DOUBLE_EQ( z1, z2 )
+	ASSERT_NEAR( x1, x2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( y1, y2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( z1, z2, DOUBLE_TOLERANCE )
 end

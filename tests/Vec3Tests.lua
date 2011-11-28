@@ -2,17 +2,17 @@
 -- Setup
 -----------------------------
 
-require "testkit.Unit"
-
 local glm = require "glm"
 
+local DOUBLE_TOLERANCE = 1e-7
 
-local function ASSERT_VEC_EQ( v1, v2, errorMsg )
+
+local function ASSERT_VEC_EQ( v1, v2 )
 	local x1,y1,z1 = glm.getXYZ( v1 )
 	local x2,y2,z2 = glm.getXYZ( v2 )
-	ASSERT_DOUBLE_EQ( x1, x2, errorMsg )
-	ASSERT_DOUBLE_EQ( y1, y2, errorMsg )
-	ASSERT_DOUBLE_EQ( z1, z2, errorMsg )
+	ASSERT_NEAR( x1, x2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( y1, y2, DOUBLE_TOLERANCE )
+	ASSERT_NEAR( z1, z2, DOUBLE_TOLERANCE )
 end
 -----------------------------
 -- Vec3 Tests
