@@ -88,9 +88,6 @@ function crossTest()
 	v2 = glm.Vec3( 0, 0, 1 )
 	local v3 = glm.crossVec( v1, v2 )
 	ASSERT_VEC_EQ( v3, glm.Vec3( 1, 0, 0 ) )
-	local v4
-	glm.crossVec( v1, v2, v4 )
-	ASSERT_VEC_EQ( v3, glm.Vec3( 1, 0, 0 ) )	
 end
 
 function dotTest()
